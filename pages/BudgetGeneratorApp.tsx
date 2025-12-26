@@ -7,7 +7,6 @@ import { PdfInfoModal } from '../components/PdfInfoModal';
 
 import { generateQuote, analyzeCounterOffer, getChatResponse } from '../services/geminiService';
 import { generateProposalPdf } from '../services/pdfGenerator';
-import { userService } from '../services/userService';
 import type { ProjectData, Quote, ClientCounterOffer, CounterOfferAnalysis, ChatMessage, PdfInfo, User } from '../types';
 
 interface BudgetGeneratorAppProps {
@@ -49,9 +48,6 @@ export const BudgetGeneratorApp: React.FC<BudgetGeneratorAppProps> = ({ user, on
     try {
       const generatedQuote = await generateQuote(data);
       setQuote(generatedQuote);
-
-      // Increment usage after successful generation
-      await userService.incrementUsage(user.email);
 
       // Add initial greeting from the AI strategist
       setChatHistory([{
